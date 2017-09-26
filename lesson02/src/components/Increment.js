@@ -45,10 +45,10 @@ class Increment extends Component{
 
 Increment.displayName = 'IncrementComponent';
 Increment.propTypes = {
-	count: PropTypes.number.isRequired
+	count: PropTypes.number
 };
 Increment.defaultProps = {
-	count: 100
+	count: 0
 };
 
 export default Increment;

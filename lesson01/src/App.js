@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import Increment from './components/Increment';
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  //getDefaultProps
-  //getInitialState
-  constructor(props){
-    super(props);
-    this.state = {
+  
+  state = {
+      showIncrement: true,
       sortBtnText:'倒序',
       sortStatus: true,
       num: 0,
       list: [1,2,3,4]
-    };
-  }
+  };
+
   componentWillReceiveProps(nextProps){
     console.log('componentWillReceiveProps');
   }
@@ -25,24 +24,29 @@ class App extends Component {
   }
   componentDidMount(){
     console.log('componentDidMount');
-    // this.setState({num:this.state.num+1});
-    // console.log(this.state.num);
-    // this.setState({num:this.state.num+1});
-    // console.log(this.state.num);
-    // this.setState({num:this.state.num+1});
-    // console.log(this.state.num);
-    // this.setState({num:this.state.num+1});
-    // console.log(this.state.num);
-    setTimeout(() => {
-      this.setState({num:this.state.num+1});
+    this.setState({num:this.state.num+1});
+    console.log(this.state.num);
+    this.setState({num:this.state.num+1});
+    console.log(this.state.num);
+    this.setState({num:this.state.num+1});
+    console.log(this.state.num);
+    this.setState({num:this.state.num+1});
+    console.log(this.state.num);
+    this.setState({num:this.state.num+1},() => {
       console.log(this.state.num);
-      this.setState({num:this.state.num+1});
-      console.log(this.state.num);
-      this.setState({num:this.state.num+1});
-      console.log(this.state.num);
-      this.setState({num:this.state.num+1});
-      console.log(this.state.num);
-    },0);
+    });
+
+
+    // setTimeout(() => {
+    //   this.setState({num:this.state.num+1});
+    //   console.log(this.state.num);
+    //   this.setState({num:this.state.num+1});
+    //   console.log(this.state.num);
+    //   this.setState({num:this.state.num+1});
+    //   console.log(this.state.num);
+    //   this.setState({num:this.state.num+1});
+    //   console.log(this.state.num);
+    // },0);
   }
   componentWillUnmount(){
     console.log('componentWillUnmount');
@@ -84,7 +88,6 @@ class App extends Component {
     this.setState({
       num: num+1
     });
-    //this.subtract();
   }
   subtract = () => {
     let { num } = this.state;
@@ -108,10 +111,15 @@ class App extends Component {
       });
     }, 1000);
   }
+  toggle = () => {
+    this.setState({
+      showIncrement: !this.state.showIncrement
+    });
+  }
   render() {
-    let { num, list, sortBtnText } = this.state;
+    let { num, list, sortBtnText, showIncrement } = this.state;
     return (
-      <div className="App">
+      <div  className={classnames('App','test','up')}>
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
@@ -120,8 +128,9 @@ class App extends Component {
           <div>number:{num}</div>
           <div>list:{this.getList(list)}</div>
         </div>
+        {/* button list*/}
         <div>
-          <button onClick={this.add}>加1</button>
+          <button type="submit" onClick={this.add}>加1</button>
           <button onClick={this.subtract}>减1</button>
           <button onClick={this.addAsyn}>asyn加1</button>
           <button onClick={this.subtractAsyn}>asyn减1</button>
@@ -129,7 +138,12 @@ class App extends Component {
         <div>
           <button onClick={this.listSort}>list {sortBtnText}</button>
         </div>
-        <Increment />
+        <div>
+          <button onClick={this.toggle}>显示or隐藏Increment</button>
+        </div>
+        {showIncrement &&
+          <Increment/>
+        }
       </div>
     );
   }
